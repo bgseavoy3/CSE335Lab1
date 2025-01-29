@@ -1,0 +1,107 @@
+//
+//  part1.swift
+//  CSE335Lab1
+//
+//  Created by bseavoy on 1/28/25.
+//
+
+import SwiftUI
+
+struct part1View: View {
+    @State var weight: String = ""
+    @State var height: String = ""
+    @State var BMI: Double = 0.0
+    @State var heightSq: Double = 0.0
+    @State var fHalf: Double = 0.0
+    @State var firstHalf: Double = 0.0
+    @State var secondHalf: Double = 0.0
+    @State var Ideal: Double = 0.0
+    @State var result:String = "test"
+    var body: some View {
+        VStack
+        {
+            Text("Ideal Weight")
+            Spacer()
+            HStack
+            {
+                Text("Your Weight(in inches)")
+                Spacer()
+                Spacer()
+                TextField("please enter your weight here", text: $weight)
+            }
+            HStack
+            {
+                Text("Height(in inches): ")
+                Spacer()
+                Spacer()
+                TextField("please enter your height here", text: $height)
+            }
+            Button("Calculate BMI & Ideal Weight", action:
+            {
+                heightSq = (Double(height) ?? 0.0) * (Double(height) ?? 0.0)
+                fHalf = ((Double(weight) ?? 0.0)/heightSq)
+                BMI = fHalf * 703
+                    firstHalf = 5 * BMI
+                secondHalf = (BMI / 5)*((Double(height) ?? 0.0) - 60)
+                    Ideal = firstHalf + secondHalf
+                
+                if(Ideal + 20 <= (Double(weight) ?? 0.0))
+                {
+                    result = "You are overweight"
+                }
+                else if(Ideal + 10 <= (Double(weight) ?? 0.0))
+                {
+                    result = "need to control your weight"
+                }
+                else if(Ideal + 5 <= (Double(weight) ?? 0.0))
+                {
+                    result = "You need to watch your weight gain"
+                }
+                else if(Ideal - 5 <= (Double(weight) ?? 0.0))
+                {
+                    result = "You are in good shape"
+                }
+                else
+                {
+                    result = "you need to eat more carb"
+                }
+                
+            })
+            Spacer()
+            if(BMI != 0)
+            {
+                Text("Your BMI: " + String(String(format: "%.2f", BMI)))
+                Spacer()
+                Text("Your Ideal Weight: " + String(String(format: "%.2f", Ideal)))
+                Spacer()
+                
+                if(result == "You are overweight")
+                {
+                    Text(result).foregroundStyle(.red)
+                }
+                if(result == "You need to control your weight")
+                {
+                    Text(result).foregroundStyle(.blue)
+                }
+                if(result == "You need to watch your weight gain")
+                {
+                    Text(result).foregroundStyle(.purple)
+                }
+                if(result == "You are in good shape")
+                {
+                    Text(result).foregroundStyle(.green)
+                }
+                if(result == "You need to eat more carb")
+                {
+                    Text(result).foregroundStyle(.yellow)
+                }
+            }
+            }
+    }
+
+}
+
+#Preview {
+    part1View()
+}
+
