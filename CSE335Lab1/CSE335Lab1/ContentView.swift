@@ -11,7 +11,7 @@ struct ContentView: View {
     @State var weight: String = ""
     @State var height: String = ""
     @State var BMI: Double = 0.0
-    @State var heightSq = 0.0
+    @State var heightSq: Double = 0.0
     @State var fHalf: Double = 0.0
     @State var firstHalf: Double = 0.0
     @State var secondHalf: Double = 0.0
